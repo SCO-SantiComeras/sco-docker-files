@@ -11,13 +11,13 @@ services:
       - ./sco-angular-components-base/src:/app/src
   api:
     build: 
-      context: ./sco-nestjs-utilities-bases
+      context: ./sco-nestjs-utilities-base
       dockerfile: Dockerfile.prod
     ports:
       - 8000:8000
       - 8001:8001
     volumes:
-      - ./sco-nestjs-utilities-bases/src:/app/src
+      - ./sco-nestjs-utilities-base/src:/app/src
     depends_on:
       - db
   db:
