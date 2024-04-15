@@ -1,0 +1,32 @@
+version: "1.1.1"
+
+services:
+  app:
+    build: 
+      context: ./sco-angular-components-base
+      dockerfile: Dockerfile.prod
+    ports:
+      - 4200:80
+    volumes:
+      - ./sco-angular-components-base/src:/app/src
+  api:
+    build: 
+      context: ./sco-nestjs-utilities-bases
+      dockerfile: Dockerfile.prod
+    ports:
+      - 8000:8000
+      - 8001:8001
+    volumes:
+      - ./sco-nestjs-utilities-bases/src:/app/src
+    depends_on:
+      - db
+  db:
+    image: mongo:5.0.19-focal
+    attach: false
+    ports:
+      - 27017:27017
+    volumes:
+      - sco-nestjs-utilities-base:/data/db
+
+volumes:
+  sco-nestjs-utilities-base:
