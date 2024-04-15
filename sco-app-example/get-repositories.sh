@@ -8,6 +8,9 @@ git clone https://github.com/SCO-SantiComeras/sco-app-example-frontend.git \
 
 # Global repository
 #git clone https://github.com/SCO-SantiComeras/sco-app-example.git \
-#&& cp -r ./sco-app-example/ ./
+#&& cp -r -a ./sco-app-example/* ./ \
+#&& cp -r ./sco-app-example/.gitignore ./.gitignore \
+#&& chmod -R 777 ./sco-app-example \
+#&& rm -f -r ./sco-app-example
 
 echo "Repositorios descargados correctamente"

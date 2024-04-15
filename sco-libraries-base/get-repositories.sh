@@ -6,6 +6,9 @@ echo "Empezando descarga de repositorios..."
 #&& git clone https://github.com/SCO-SantiComeras/sco-libraries-base.git
 
 git clone https://github.com/SCO-SantiComeras/sco-libraries-base.git \
-&& cp -r ./sco-libraries-base/ ./
+&& cp -r -a ./sco-libraries-base/* ./ \
+&& cp -r ./sco-libraries-base/.gitignore ./.gitignore \
+&& chmod -R 777 ./sco-libraries-base \
+&& rm -f -r ./sco-libraries-base
 
 echo "Repositorios descargados correctamente"
