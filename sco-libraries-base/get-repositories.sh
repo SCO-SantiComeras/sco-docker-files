@@ -9,6 +9,7 @@ git clone https://github.com/SCO-SantiComeras/sco-libraries-base.git \
 && cp -r -a ./sco-libraries-base/* ./ \
 && cp -r ./sco-libraries-base/.gitignore ./.gitignore \
 && chmod -R 777 ./sco-libraries-base \
+&& sleep 3 \
 && rm -f -r ./sco-libraries-base
 
 echo "Repositorios descargados correctamente"

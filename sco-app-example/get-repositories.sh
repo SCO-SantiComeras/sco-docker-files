@@ -11,6 +11,7 @@ git clone https://github.com/SCO-SantiComeras/sco-app-example-frontend.git \
 #&& cp -r -a ./sco-app-example/* ./ \
 #&& cp -r ./sco-app-example/.gitignore ./.gitignore \
 #&& chmod -R 777 ./sco-app-example \
+#&& sleep 3 \
 #&& rm -f -r ./sco-app-example
 
 echo "Repositorios descargados correctamente"
