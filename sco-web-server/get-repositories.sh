@@ -6,6 +6,7 @@ echo "Empezando descarga de repositorios..."
 git clone https://github.com/SCO-SantiComeras/sco-web-server.git \
 && cp -r -a ./sco-web-server/* ./ \
 && cp -r ./sco-web-server/.gitignore ./.gitignore \
+&& cp -r ./sco-web-server/.dockerignore ./.dockerignore \
 && cp -r ./sco-web-server/.git ./.git \
 && mkdir nodeserver \
 && chmod -R 777 ./sco-web-server \
