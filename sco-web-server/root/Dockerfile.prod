@@ -1,0 +1,47 @@
+# Compilar ficheros frontend
+FROM node:16-alpine3.18 AS frontend-build
+WORKDIR /app/
+
+COPY sco-web-server-frontend/package*.json .
+RUN npm i @angular/cli@13.1.0
+
+COPY sco-web-server-frontend .
+RUN npm run build:docker:prod
+
+## Compilar ficheros backend
+FROM node:16-alpine3.18 AS backend-build
+RUN addgroup backend && adduser -S -G backend backend
+USER backend
+WORKDIR /app/
+
+COPY --chown=backend sco-web-server-backend .
+
+run npm i @nestjs/cli@7.6.0
+RUN npm run prebuild
+RUN npm run build
+
+RUN cp -r env/ ./dist/env
+RUN cp -r package.json ./dist/package.json
+RUN cp -r i18n/ ./dist/i18n
+RUN cp -r tsconfig.build.json ./dist/tsconfig.build.json
+
+WORKDIR /app/dist
+RUN mkdir public
+
+# Desplegar ficheros compilados
+FROM node:16-alpine3.18 AS deploy-build
+RUN addgroup deploy && adduser -S -G deploy deploy
+USER deploy
+WORKDIR /app/
+
+COPY --chown=deploy --from=backend-build /app/dist/ ./backend/dist/
+COPY --chown=deploy --from=frontend-build /app/dist/sco-web-server/ ./backend/dist/public/
+
+WORKDIR /app/backend/dist/
+RUN npm install pm2@latest
+RUN npm install
+
+EXPOSE 9000
+EXPOSE 9001
+
+CMD ["npm", "run", "pm2:start:docker"]

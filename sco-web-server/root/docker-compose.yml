@@ -1,0 +1,45 @@
+version: "1.1.1"
+
+services:
+  app:
+    build: 
+      context: ./
+      dockerfile: Dockerfile.fe.dev
+    ports:
+      - 4200:4200
+    volumes:
+      - ./sco-web-server-frontend/src:/app/src
+  api:
+    build: 
+      context: ./
+      dockerfile: Dockerfile.be.dev
+    ports:
+      - 9000:9000
+      - 9001:9001
+    volumes:
+      - ./sco-web-server-backend/src:/app/src
+      - ./sco-web-server-backend/package.json:/app/package.json
+      - ./sco-web-server-backend/env:/app/env
+      - ./sco-web-server-backend/i18n:/app/i18n
+      - ./nodeserver:/usr/share/nginx/html/nodeserver
+    depends_on:
+      - db
+      - nginx
+  nginx:
+    image: nginx:latest
+    attach: false
+    ports:
+      - "80:80"
+    volumes:
+      - ./nodeserver:/usr/share/nginx/html/nodeserver
+    restart: always
+  db:
+    image: mongo:5.0.19-focal
+    attach: false
+    ports:
+      - 27017:27017
+    volumes:
+      - sco-web-server:/data/db
+
+volumes:
+  sco-web-server:
