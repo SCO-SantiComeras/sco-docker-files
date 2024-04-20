@@ -1,0 +1,21 @@
+# Compilar ficheros
+FROM node:16-alpine3.18 as build-stage
+WORKDIR /app/
+
+# Folder Path For Unirepo If Dockerfile Is In sco-app-example-fronted root folder the path will be '.'
+COPY package*.json .
+#COPY sco-example-app-frontend/package*.json .
+
+RUN npm i @angular/cli@13.1.0
+
+# Folder Path For Unirepo If Dockerfile Is In sco-app-example-fronted root folder the path will be '.'
+COPY . .
+#COPY sco-example-app-frontend .
+
+RUN npm run build:prod
+
+# Levantar ficheros compilados
+FROM nginx:1.25.1-alpine3.17-slim
+COPY --from=build-stage /app/dist/ /usr/share/nginx/html/
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
