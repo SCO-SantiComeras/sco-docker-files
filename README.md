@@ -10,9 +10,9 @@ Este repositorio contiene una colección de archivos Docker, docker-compose y al
 
 # Uso
 - Clona este repositorio en tu máquina local
-<pre>
-git clone https://github.com/tu_usuario/SCO-docker-files.git
-</pre>
+    - <pre>
+    git clone https://github.com/tu_usuario/SCO-docker-files.git
+    </pre>
 - Explora los diferentes directorios y archivos para encontrar lo que necesitas.
 - Utiliza los archivos Docker y docker-compose según tus necesidades para gestionar servicios y contenedores Docker.
 - Ejecuta los scripts shell para tareas específicas de gestión y configuración de repositorios, cambios en las ramas, etc.
